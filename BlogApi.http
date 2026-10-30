@@ -1,0 +1,27 @@
+@BlogApi_HostAddress = http://localhost:5080
+
+GET {{BlogApi_HostAddress}}/weatherforecast/
+Accept: application/json
+
+### // create post
+
+POST {{BlogApi_HostAddress}}/api/posts
+Content-Type: application/json
+
+{
+  "title": "My First Blog Post",
+  "content": "This is my first post created through Api."
+}
+
+### // update blog post
+PUT {{BlogApi_HostAddress}}/api/posts/1
+Content-Type: application/json
+
+{
+  "id": 1,
+  "title": "My Updated Blog Post",
+  "content": "This is the updated content of my blog post."
+}
+
+### //delete a blog post
+DELETE {{BlogApi_HostAddress}}/api/posts/1
