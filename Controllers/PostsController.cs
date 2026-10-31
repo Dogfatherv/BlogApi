@@ -22,7 +22,7 @@ namespace BlogApi.Controllers
         public async Task<ActionResult<IEnumerable<Post>>> GetPosts()
 
         {
-            var posts = await _context.Posts.ToListAsync();
+             var posts = await _context.Posts.ToListAsync();
             return Ok(posts);
         }
 
@@ -43,27 +43,25 @@ namespace BlogApi.Controllers
 
         public async Task<IActionResult> UpdatePost(
                 int id,
-                Post updatedPost)
+                 UpdatePostDto request)
         {
-            if (id != updatedPost.Id)
-            {
-                return BadRequest(
-                   "The URL ID and post ID must match. ");
-            }
-
             var existingPost = await _context.Posts.FindAsync(id);
 
             if (existingPost == null)
             {
                 return NotFound();
+                   
             }
 
-            existingPost.Title = updatedPost.Title;
-            existingPost.Content = updatedPost.Content;
+            existingPost.Title= request.Title;
+            existingPost.Content= request.Content;
 
             await _context.SaveChangesAsync();
 
             return NoContent();
+
+           
+
         }
 
         [HttpDelete("{id:int}")]
