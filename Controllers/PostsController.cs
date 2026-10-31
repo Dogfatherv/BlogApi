@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Reflection;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Identity.Client;
+using BlogApi.DTOs;
 
 namespace BlogApi.Controllers
 {
@@ -85,8 +86,14 @@ namespace BlogApi.Controllers
 
         [HttpPost]
 
-        public async Task<ActionResult<Post>> CreatePost(Post post)
+        public async Task<ActionResult<Post>> CreatePost(createPostDto request)
         {
+            var post = new Post
+            {
+                Title = request.Title,
+                Content = request.Content,
+                CreatedDate = DateTime.UtcNow,
+            };
             post.CreatedDate = DateTime.Now;
             _context.Posts.Add(post);
             await _context.SaveChangesAsync();
